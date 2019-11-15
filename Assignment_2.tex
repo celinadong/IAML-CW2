@@ -68,8 +68,7 @@
 
 
 \answerbox{12em}{
-The training set comprises of 5648 instances and 1000 attributes (features). We observe that the data ranges from 0 to 1 given that the minimum value for all the attributes is 0 and the maximum never surpasses 1. All the attributes are non-null, and all of them are of type float64. From the data obtained by the describe() function, we see that the mean value for each attribute is quite low, although they seem like they're greater than the median. Also, it seems that the values for all the percentiles are 0. By comparing the 75th percentile against the max value for each of the attributes, we could deduce that there exists outliers in the data set. The distribution of the classes is overall quite balanced, except for the class 7, talk.religion.misc, which has around 1/3 less instances than the other classes.
-We observe that the classes 0 and 1 are closely related (comp), as well as 2 and 3 (rec), 4 and 5 (sci), 6 and 7 (religion). By applying the .unique() function to the dataset, we observe that there are only 110 different unique values in our dataset, and using the .value\_counts() functions it seems that all of those values only have 1 count except for 0. In fact, the typical values of the features is 0; 5539 of our instances take value 0 in our dataset.
+Set has 5648 entries and 1000 attributes, with data that ranges from 0 to 1. All attributes are non-null and of type float64; and their mean values are quite low, although they seem greater than the median. Values for all percentiles is 0. By comparing the 75th percentile against the max value for each attribute, we could say that there are outliers in the dataset. Distribution of the classes is quite balanced, except for class 7, which has around 1/3 less instances than the others. Classes 0-1 (comp), 2-3 (rec), 4-5 (sci), 6-7 (religion) are closely related. There are only 110 unique values in our dataset, and it seems that there is only one value count for all the values except for 0. In fact, 5539 of our instances take value 0 in our dataset.
 }
 
 
@@ -77,11 +76,11 @@ We observe that the classes 0 and 1 are closely related (comp), as well as 2 and
 \end{subquestion}
 
 
-\begin{subquestion}{(3 points) Looking now at the Testing set, how does it compare with the Training Set (in terms of sizes and feature-distributions) and what could be the repurcussions of this?}
+\begin{subquestion}{(3 points) Looking now at the Testing set, how does it compare with the Training Set (in terms of sizes and feature-distributions) and what could be the repercussions of this?}
 
 
 \answerbox{10em}{
-In the testing set, we have less instances than in the training set, 1883 instances. The number of attributes remains the same. All the values are non-null of type float64. We have 32 unique values, 32/1883=0.017, the proportion of unique values is slightly lower than the one we have for our training dataset 110/5648=0.019. In general, discarding the value 0, we observe that the values in training dataset are different to those in testing dataset. When splitting the training and testing datasets, it is preferred that the testing dataset contains instances that our model has never seen before. This way, we will know if our model has overfit to our training set, and the comparison of its performance on the testing set. If the performance on the testing set is relatively good and does not differ by much from that of the training set, then we can say our model generalises data quite well. Like in the training dataset, there are less instances labeled 7.
+There are less instances than training set (1883) and number of attributes remains the same. All values are non-null of type float64. There are 32 unique values (32/1883=0.017). The proportion of unique values is slightly lower than the one we have for our training dataset (110/5648=0.019), which is expected since we have less entries. Entries in testing are different to those in training, which is preferable to determine if the model generalises well. Like in the training dataset, there are less instances labeled 7 compared to the other classes.
 }
 
 
@@ -93,7 +92,7 @@ In the testing set, we have less instances than in the training set, 1883 instan
 
 
 \answerbox{10em}{
-TF-IDF balances out the frequency of words by how often they appear across all documents, it reflects how relevant a word in a document is. It might be the case that the word is really frequent in general, such as 'the' or other stopwords, but are not really relevant or meaningful. TF-IDF reduces the weight of these common meaningless words and gives higher weight to uncommon words in a document. For instance, a document about Business would highlight words like 'enterprise' and 'stakeholder'. If we used the number of times a word appears in a document, then we would get that extremely frequent words dominate in some documents, even though they do not provide any useful information to our model.
+TF-IDF balances out the frequency of words by how often they appear across all documents; it reflects how relevant a word in a document is. It might be the case that a word is generally frequent, like 'the', but are not relevant nor meaningful. TF-IDF reduces the weight of these common meaningless words and gives higher weight to uncommon words in a document. If we used the number of times a word appears in a document, then we would get that extremely frequent words dominate in some documents, even if they do not provide any useful information to our model.
 }
 
 
@@ -118,9 +117,7 @@ TF-IDF balances out the frequency of words by how often they appear across all d
 
 
 \answerbox{8em}{
-K-Means algorithm is non-deterministic because if we were to run the algorithm on the same dataset various times, we could obtain different results and classifications. That is, the algorithm starts with an initial set of k cluster centres randomly selected, classifies the data points according to these centroids and then recomputes the centroids. Given that the initial centroids for the algorithm are randomly selected, on different executions of the algorithm, we get different outputs for the same dataset inputted. This makes the results obtained hard to compare.
-
-The SKLearn K-means algorithm stops when the difference between the previous and new centroids is less than a specific threshold. It uses the threshold as a stopping criterion for the algorithm, and runs until the centroids of the clusters do not change significantly. The final model is the one obtained when we stop after reaching the threshold.
+Since the initial centroids are randomly selected, on different executions of the algorithm, different outputs are obtained for the same dataset; which makes results hard to compare. The SKLearn implementation of k-means stops when the difference between previous and new centroids is less than a specific threshold. The algorithm runs until the centroids of the clusters do not change significantly. The final model is the one obtained when we stop after reaching the threshold.
 }
 
 
@@ -133,7 +130,7 @@ The SKLearn K-means algorithm stops when the difference between the previous and
 
 
 \answerbox{5em}{
-A reasonable number of clusters for our newsgroups problem is the number of distinct classes we have in the dataset, that is, 8. All our instances are classified to one of the classes which we can find in the news\_labels dataframe. By using the number of classes as the number of clusters for k-means, we are clustering the instances in 8 different clusters (each corresponding to one news label). This way, we will obtain the label that corresponds to each data point.
+By using the number of distinct classes we have in the dataset (8) as the number of clusters for k-means, we group the instances into 8 different clusters (each assigned to one label) and will obtain the label that corresponds to each datapoint.
 }
 
 
@@ -146,11 +143,7 @@ A reasonable number of clusters for our newsgroups problem is the number of dist
 
 
 \answerbox{16em}{
-Expression for the MI in terms of entropy is MI(U,V) = H(U) + H(V) - H(U,V)
-
-MI measures how accurate the clustering algorithm's label predictions are compared to the actual true labels, that is, the agreement of the two assignments ignoring permutations (how related to variables are to each other). It provides a general measure based on the joint probabilities of two variables assuming no underlying relationship (like linearity). MI is capable of identifying more information about the relationship of two variables than correlation can.
-
-It is applicable here because it measures the similarity between the clusters and true classes, so we can determine how well the clustering algorithm performed. In practice, this metric might be difficult to use because we might not always have the ground truth labels of the instances, so we cannot compare the predicted labels against these. In general, we use unsupervised learning to determine the clusters and possible classifications of our data when we do not have labels.
+MI in terms of entropy is MI(U,V) = H(U) + H(V) - H(U,V). It measures how accurate the clustering's label predictions are, compared to the actual true labels, i.e., how related to variables are to each other. It provides a general measure based on the joint probabilities of two variables assuming no underlying relationship (like linearity). MI is capable of identifying more information about the relationship of two variables than correlation can. It is applicable here because it measures the similarity between the clusters and true classes, so we can determine how well the clustering algorithm performed. In practice, this metric might be difficult to use because we might not always have the ground truth labels of the instances, so we cannot compare the predicted labels against these. In general, we use unsupervised learning to determine the clusters and possible classifications of our data when we do not have labels.
 }
 
 
@@ -176,9 +169,7 @@ It is applicable here because it measures the similarity between the clusters an
 
 
 \answerbox{10em}{
-From the lineplot, we observe that for 2 clusters, the AMI score is quite low (0.0983) and the score increases rapidly as we increase the number of clusters. However, we observe that the AMI for 4 clusters is unusually higher than the score for 5. For 9 clusters, we get the maximum AMI score of 0.3343. According to our plot, 9 clusters would be the ideal number for our clustering because it achieves the highest performance. But as we keep increasing the number of clusters, the AMI decreases slowly because we reach a point where the centroids start to overlap and each datapoint is assigned to one centroid (itself).
-
-I was expecting to have a low AMI with a small number of clusters and a specific number of clusters where the AMI reaches the maximum score and starts decreasing after that peak. But I was not expecting to have a higher score for 4 clusters than for 5.
+AMI is low for a small number of clusters and increases rapidly. However, score drops for 5 clusters but keeps increasing until 9 clusters, with a score of 0.334. This means that the clustering achieves the best performance. But as we keep increase further the number of clusters, AMI decreases slowly because we reach a point where the centroids start to overlap and datapoints are assigned to themselves. I was expecting to have a low AMI with a small number of clusters and a point where AMI reaches the maximum score and starts decreasing after that peak.
 }
 
 
@@ -228,9 +219,7 @@ The clustering and the true labels do not align very well with their true classe
 
 
 \answerbox{8em}{
-F1-score is a weighted average of the precision and recall (harmonic mean of the two). Accuracy mainly measures the correctly classified instances, and is largely contributed by True Negatives. In our problem, this can be harmful because we might never classify any instances to class 7, but the model should try to minimize these False Negatives. Thus, F1-score is more appropriate because it measures the misclassified instances better than accuracy and penalizes extreme values. In our news classification problem FN and FP are more important than TP and TN, especially because the classes are imbalanced (especially class 7), so F1-score is a more appropriate metric to use.
-
-The macro-average in a multiclass problem setting computes the F1-score independently for each class and then takes the average, treating all the classes equally without taking into account imbalanced classes, which can result in a misleading F1-score result.
+F1-score is a weighted average of precision and recall. In our problem, accuracy can be harmful because we might never classify any instances to class 7, but the model should try to minimise these FNs. F1-score measures misclassified instances better than accuracy and penalises extreme values. The macro-average computes F1-score independently for each class and then takes the average, treating all classes equally without considering imbalanced classes, which can result in a misleading F1-score.
 }
 
 
@@ -267,7 +256,7 @@ Muticlass classification can be achieved with Logistic Regression by using the o
 
 
 \answerbox{9em}{
-Your Answer Here
+Mean F1-score is 0.66899 and standard deviation is 0.01692. Given the average F1-score obtained is 0.67, we can say that the performance of the regressor is quite good and above average 0.5. We also observe that most of the F1-scores obtained are quite low, which indicates that they are not very spread out and are close to the mean (reflected on the low standard deviation).
 }
 
 
@@ -280,7 +269,7 @@ Your Answer Here
 
 \answerbox{40em}{
 \begin{center}
- \includegraphics[width=0.9\textwidth]{graphs/35.png}
+ \includegraphics[width=1\textwidth]{graphs/35.png}
  \end{center}
 }
 
@@ -293,9 +282,7 @@ Your Answer Here
 
 
 \answerbox{11em}{
-The optimal value of parameter C is 1.0, since this is the value of C for which we obtain the highest average F1-score (0.6768). This means that our Logistic Regressor generalises the best for C=1.0. The smaller the value of parameter C, the stronger the regularisation and the larger the value, the weaker the regularisation.
-
-The aim with regularisation is to reduce the generalisation error, and not the training error. So, regularisation generalises better on unseen data and reduces overfitting of the model to the training dataset. I chose value C=1.0 because for this value, the model generalises the best on the validation set. So, although we obtain higher F1-scores for higher parameter C values, we see that the model overfits to the training dataset and does not generalise well on unseen data (validation set). In fact, we see that it overfits because the difference on the F1-score between the training and validation sets keep increasing once we reach the peak for validation at C=1.0. Thus, the optimal value is for the C that has the highest score.
+C=1.0 because we obtain the highest average F1-score (0.6768), which means that our regressor generalises the best for C=1.0 on the validation set. The smaller the value of parameter C, the stronger the regularisation and the larger the value, the weaker the regularisation. We regularise to reduce the generalisation error, and not the training error; and to reduce overfitting of the model to the training dataset. So, although we obtain higher F1-scores for higher C values, our model overfits to the training dataset and does not generalise well on unseen data. Thus, the optimal value is for the C that has the highest score.
 }
 
 
@@ -347,7 +334,7 @@ The F1-score obtained on the actual test set is 0.6748. This is expected given t
 
 
 \answerbox{13em}{
-Your answer here
+1,306,758 instances and 7 attributes. 'Date Time' (object) states the date and time that of the reading. The values range from '1993-01-01' to '2019-08-12'. NOx, NO2, NO (float), refer to the amount of these chemicals, and are the most problematic given that some entries have missing data and others have negative values (ug/m3 cannot be negative). They range between -31.08 to 2164.25, -6.6698 to 576.5 and -17.71 to 1231.24 respectively. 576 readings are negative and 118872 have missing data (NaN). These problematic values are unreasonable since the dataset focuses mainly on air pollution. SiteID (integer), uniquely identifies air pollution entries from same location (18 unique locations). Loc.Lat and Loc.Long (float) define the coordinates and range between 51.43 and 51.49, and -2.69 and -2.54 respectively.
 }
 
 
@@ -360,7 +347,21 @@ as having missing data, and similarly for negative entries. \hint{Pandas has a h
 
 
 \answerbox{17em}{
-Your Table Here
+\begin{tabular}{rrrrrrrr}
+\toprule
+ Site &  Samples &  Missing\% &  Negative\% &  Site &  Samples &  Missing\% &  Negative\% \\
+\midrule
+       0 &     6446 &      1.613 &        0.00 &        9 &    22071 &      5.301 &        0.00 \\
+       1 &   163111 &      6.290 &        0.00 &       10 &    96407 &      3.590 &        0.00 \\
+       2 &    62990 &      4.348 &        0.00 &       11 &    20693 &      1.904 &        0.09 \\
+       3 &    25464 &     77.333 &        0.78 &       12 &    45240 &     17.485 &        0.00 \\
+       4 &    74787 &      2.069 &        0.01 &       13 &    12423 &     51.461 &        0.02 \\
+       5 &   113952 &      8.828 &        0.00 &       14 &   113951 &     10.532 &        0.00 \\
+       6 &   142141 &      7.444 &        0.00 &       15 &     2712 &    100.000 &        0.00 \\
+       7 &   115162 &      4.195 &        0.28 &       16 &   154331 &      6.531 &        0.01 \\
+       8 &    43824 &     21.057 &        0.00 &       17 &    91053 &      6.271 &        0.00 \\
+\bottomrule
+\end{tabular}
 }
 
 
@@ -372,7 +373,7 @@ Your Table Here
 
 
 \answerbox{11em}{
-Your Answer Here
+118,872 instances out of 1,306,758 in our initial dataset, have at least one missing value. All 18 sites have at least one missing data in the gas readings. All entries for Site 15 have missing values and Site 3 has 77.33\% missing values out of the total 25,464 Site 3 instances. Site 0 has the lowest relative amount of missing values. 576 entries in the dataset have negative values, relatively less than missing data. Not all sites have negative readings. Only sites 3, 7, 13 and 16 have negative valued data. Site 3 has the highest percentage of negative valued data. But overall, there are not many negative values. So, Site 3 has a high percentage of problematic data.
 }
 
 
@@ -384,7 +385,15 @@ Your Answer Here
 
 
 \answerbox{10em}{
-Your Table Here
+\begin{tabular}{lrrr}
+\toprule
+{} &    NOx &    NO2 &     NO \\
+\midrule
+NOx &  1.000 &  0.878 &  0.988 \\
+NO2 &  0.878 &  1.000 &  0.808 \\
+NO  &  0.988 &  0.808 &  1.000 \\
+\bottomrule
+\end{tabular}
 }
 
 
@@ -396,7 +405,7 @@ Your Table Here
 
 
 \answerbox{7em}{
-Your Answer Here
+As expected, all diagonal values are very strongly correlated, with maximum correlation of 1, because they are paired with themselves. The most correlated pair is NO and NOx, with a correlation coefficient of 0.99, followed by the pair NO and NO2, and lastly NO2 and NOx which are the least correlated pair out of the three possible pairs with a value of 0.88.
 }
 
 
@@ -410,7 +419,9 @@ Your Answer Here
 
 
 \answerbox{40em}{
-Your Image Here
+\begin{center}
+ \includegraphics[width=0.38\textwidth]{graphs/46.png}
+ \end{center}
 }
 
 
@@ -422,7 +433,7 @@ Your Image Here
 
 
 \answerbox{12em}{
-Your Answer Here
+In the NO gas heatmap, the highest correlated sites are the pairs (1,2) and (2,16), both with correlation coefficient 0.79, which means that these location pairs' pollution quantity is similar. Regarding the NO2 gas, we observe that indeed (2,16) are the highest correlated location pair, followed by (1,2).  And for NOx gas, (2,16) is the highest correlated pair followed by (1,2) and (1,16). Thus, we can conclude that the nitrogen oxides of locations 2 and 16 are the most related out of all the sites. The least correlated pair, in the NO heatmap the pair (7,14) has the lowest correlation, and as expected, the same location pair has the lowest value for the three gases. So, we can say that the locations 7 and 14 have the least related gases.
 }
 
 
@@ -445,7 +456,9 @@ Your Answer Here
 
 
 \answerbox{40em}{
-Your Image Here
+\begin{center}
+ \includegraphics[width=0.98\textwidth]{graphs/51.png}
+ \end{center}
 }
 
 
@@ -459,7 +472,9 @@ Your Image Here
 
 
 \answerbox{40em}{
-Your Image Here
+\begin{center}
+ \includegraphics[width=1\textwidth]{graphs/52.png}
+ \end{center}
 }
 
 
@@ -471,7 +486,7 @@ Your Image Here
 
 
 \answerbox{9em}{
-Your Answer Here
+PC1 accounts for as much of the variability, and each of the succeeding components account for as much of the remaining variability as possible. As expected, PC1 has the highest variance (59\%), and the variance explained by each PC decreases as we increase the number of principal components. (PC2 has variance 14\%). The first 11 components account for just over 95\% of the variance, so we cover for most of the important features in our original dataset with 11 PCs.
 }
 
 
@@ -484,7 +499,9 @@ Your Answer Here
 
 
 \answerbox{50em}{
-Your Image Here
+\begin{center}
+ \includegraphics[width=0.9\textwidth]{graphs/54.png}
+ \end{center}
 }
 
 
@@ -496,7 +513,7 @@ Your Image Here
 
 
 \answerbox{16em}{
-Your Answer Here
+PC1 follows the pattern of the mean but with no overlaps between any pollutants. Around 8-9am and 6-7pm, the 3 gases peak, because of rush hour times (car usage). Difference between mean and PC1 is that mean denotes the average readings for each pollutant whereas PC1 is the direction in space along which, projections have the largest variance. Our graph denotes the projections of each data instance onto our vector for PC1.  As expected, variance is high, so the data is spread out (no overlaps in PC1). Comparing the two PCs, PC2 is the direction that maximises variance among all directions, and is perpendicular to PC1. In the PC2 graph we get negative values between 0-12pm, which means that the projections' directions is opposite to the direction of the PC, i.e., a negative relationship, so a high value. PCA relies on linear assumptions and looks for orthogonal projections that contain highest variance possible, to find a hidden linear correlation between the attributes.
 }
 
 
@@ -520,7 +537,7 @@ Your Answer Here
 
 
 \answerbox{4em}{
-Your Answer Here
+Training set has 8937 instances, validation set has 2234 instances and testing set has 3724 instances.
 }
 
 
@@ -532,7 +549,7 @@ Your Answer Here
 
 
 \answerbox{8em}{
-Your Answer Here
+Baseline always predicts average of the target. RMSE for training set is 79.71 and 80.21 for validation. Given that our baseline predicts the mean, MSE turns out to be variance; and RMSE the standard deviation. The maximum target value in training is 801.25 and 656.5 in validation, and the minimum is 0.75 for both. Model prediction is 98.32, which is quite far from most of the actual predictions, thus the high error scores.
 }
 
 
@@ -544,7 +561,7 @@ Your Answer Here
 
 
 \answerbox{7em}{
-Your Answer Here
+We observe that the error is relatively lower than for the baseline regressor, which means our model is more accurate and the predictions are closer to the line of best fit. Moreover, the RMSE on the validation set is not much higher than that on the training set, so we could say our model does not overfit to the training data (although further analysis and inspection would be needed to conclude this).
 }
 
 
@@ -558,7 +575,7 @@ Your Answer Here
 
 
 \answerbox{10em}{
-Your Answer Here
+Normalising is important to make different models comparable. This way, values will range over a common scale. This way, the actual true information in a feature can be captured and we avoid giving more importance to features who have higher ranges. If we did not normalise, this use of weights would not be accurate. We would be overweighing those particular features with larger values, and make our model predictions biased towards these features with high values. Thus, normalising affects the magnitude of the coefficients but does not affect performance of the regressor.
 }
 
 
@@ -570,7 +587,7 @@ Your Answer Here
 
 
 \answerbox{15em}{
-Your Answer Here
+Site 16 is the most important site, with a relative importance of 0.16, whereas the least important is Site 6 with a value of -0.0068 and is negatively correlated. By comparing these values with the correlation coefficients for Site 17 obtained in 4.6, we observe that the site that has the highest correlation coefficient with Site 17 is indeed Site 16 for all three pollutants, and Site 6 is not very correlated with Site 17. So, we can deduce that highly correlated sites have a high relative importance value too. But this is not necessarily always true. Site 2 has a low importance value of 0.0099, but is highly correlated with Site 17.
 }
 
 
@@ -582,7 +599,7 @@ Your Answer Here
 
 
 \answerbox{8em}{
-Your Answer Here
+RMSE on training is 39.835 and 41.127 on validation. Linear performs better on validation set, relative to its training set; whereas the kNN regressor has a much lower error on training set, but does not perform that well on validation; so it does not generalise well. Limitation of kNN is that it does not work well on large datasets(14895)/dimensions(16) because it computes the distance for each datapoint at each iteration, for each dimension. so it has a high computational cost.
 }
 
 
@@ -594,7 +611,9 @@ Your Answer Here
 
 
 \answerbox{40em}{
-Your Image Here
+\begin{center}
+ \includegraphics[width=1\textwidth]{graphs/68.png}
+ \end{center}
 }
 
 
@@ -606,7 +625,7 @@ Your Image Here
 
 
 \answerbox{6em}{
-Your Answer Here
+Best value for n\_neighbors on the validation set is 16 neighbours, which has lowest RMSE value of 38.9018 on validation set. This is because the lower the error the better our model generalises on unseen data.
 }
 
 
@@ -618,7 +637,9 @@ Your Answer Here
 
 
 \answerbox{40em}{
-Your Image Here
+\begin{center}
+ \includegraphics[width=1\textwidth]{graphs/69.png}
+ \end{center}
 }
 
 
@@ -630,7 +651,7 @@ Your Image Here
 
 
 \answerbox{6em}{
-Your Answer Here
+Best case obtained for depth 8, with RMSE 45.8438. However, the regressor is overfitting. As we increase the depth, error decreases significantly on training set and becomes 0 at depth 32. But for validation set, error keeps increasing. So, the DT does not generalise well on unseen data.
 }
 
 
@@ -642,7 +663,13 @@ Your Answer Here
 
 
 \answerbox{6em}{
-Your Answer Here
+\begin{tabular}{lllll}
+\toprule
+{} & Baseline &  Linear & Nearest Neighbours & Decision Tree \\
+\midrule
+RMSE &  78.952 &  40.509 &             37.985 &       43.069 \\
+\bottomrule
+\end{tabular}
 }
 
 
