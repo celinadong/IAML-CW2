@@ -39,7 +39,7 @@
 
 %--------------------------------------------------------
 %   IMPORTANT: Specify your Student ID below [You will need to uncomment the line, else compilation will fail]. Make sure to specify your student ID correctly, otherwise we may not be able to identify your work and you will be marked as missing.
-%\newcommand{\assignmentAuthorName}{s1234567}
+\newcommand{\assignmentAuthorName}{s1701688}
 %--------------------------------------------------------
 
 \begin{document}
@@ -68,7 +68,8 @@
 
 
 \answerbox{12em}{
-Your Answer Here
+The training set comprises of 5648 instances and 1000 attributes (features). We observe that the data ranges from 0 to 1 given that the minimum value for all the attributes is 0 and the maximum never surpasses 1. All the attributes are non-null, and all of them are of type float64. From the data obtained by the describe() function, we see that the mean value for each attribute is quite low, although they seem like they're greater than the median. Also, it seems that the values for all the percentiles are 0. By comparing the 75th percentile against the max value for each of the attributes, we could deduce that there exists outliers in the data set. The distribution of the classes is overall quite balanced, except for the class 7, talk.religion.misc, which has around 1/3 less instances than the other classes.
+We observe that the classes 0 and 1 are closely related (comp), as well as 2 and 3 (rec), 4 and 5 (sci), 6 and 7 (religion). By applying the .unique() function to the dataset, we observe that there are only 110 different unique values in our dataset, and using the .value\_counts() functions it seems that all of those values only have 1 count except for 0. In fact, the typical values of the features is 0; 5539 of our instances take value 0 in our dataset.
 }
 
 
@@ -80,7 +81,7 @@ Your Answer Here
 
 
 \answerbox{10em}{
-Your Answer Here
+In the testing set, we have less instances than in the training set, 1883 instances. The number of attributes remains the same. All the values are non-null of type float64. We have 32 unique values, 32/1883=0.017, the proportion of unique values is slightly lower than the one we have for our training dataset 110/5648=0.019. In general, discarding the value 0, we observe that the values in training dataset are different to those in testing dataset. When splitting the training and testing datasets, it is preferred that the testing dataset contains instances that our model has never seen before. This way, we will know if our model has overfit to our training set, and the comparison of its performance on the testing set. If the performance on the testing set is relatively good and does not differ by much from that of the training set, then we can say our model generalises data quite well. Like in the training dataset, there are less instances labeled 7.
 }
 
 
@@ -92,7 +93,7 @@ Your Answer Here
 
 
 \answerbox{10em}{
-Your Answer Here
+TF-IDF balances out the frequency of words by how often they appear across all documents, it reflects how relevant a word in a document is. It might be the case that the word is really frequent in general, such as 'the' or other stopwords, but are not really relevant or meaningful. TF-IDF reduces the weight of these common meaningless words and gives higher weight to uncommon words in a document. For instance, a document about Business would highlight words like 'enterprise' and 'stakeholder'. If we used the number of times a word appears in a document, then we would get that extremely frequent words dominate in some documents, even though they do not provide any useful information to our model.
 }
 
 
@@ -117,7 +118,9 @@ Your Answer Here
 
 
 \answerbox{8em}{
-Your Answer Here
+K-Means algorithm is non-deterministic because if we were to run the algorithm on the same dataset various times, we could obtain different results and classifications. That is, the algorithm starts with an initial set of k cluster centres randomly selected, classifies the data points according to these centroids and then recomputes the centroids. Given that the initial centroids for the algorithm are randomly selected, on different executions of the algorithm, we get different outputs for the same dataset inputted. This makes the results obtained hard to compare.
+
+The SKLearn K-means algorithm stops when the difference between the previous and new centroids is less than a specific threshold. It uses the threshold as a stopping criterion for the algorithm, and runs until the centroids of the clusters do not change significantly. The final model is the one obtained when we stop after reaching the threshold.
 }
 
 
@@ -130,7 +133,7 @@ Your Answer Here
 
 
 \answerbox{5em}{
-Your Answer Here
+A reasonable number of clusters for our newsgroups problem is the number of distinct classes we have in the dataset, that is, 8. All our instances are classified to one of the classes which we can find in the news\_labels dataframe. By using the number of classes as the number of clusters for k-means, we are clustering the instances in 8 different clusters (each corresponding to one news label). This way, we will obtain the label that corresponds to each data point.
 }
 
 
@@ -143,7 +146,11 @@ Your Answer Here
 
 
 \answerbox{16em}{
-Your Answer Here
+Expression for the MI in terms of entropy is MI(U,V) = H(U) + H(V) - H(U,V)
+
+MI measures how accurate the clustering algorithm's label predictions are compared to the actual true labels, that is, the agreement of the two assignments ignoring permutations (how related to variables are to each other). It provides a general measure based on the joint probabilities of two variables assuming no underlying relationship (like linearity). MI is capable of identifying more information about the relationship of two variables than correlation can.
+
+It is applicable here because it measures the similarity between the clusters and true classes, so we can determine how well the clustering algorithm performed. In practice, this metric might be difficult to use because we might not always have the ground truth labels of the instances, so we cannot compare the predicted labels against these. In general, we use unsupervised learning to determine the clusters and possible classifications of our data when we do not have labels.
 }
 
 
@@ -155,19 +162,23 @@ Your Answer Here
 
 
 \answerbox{40em}{
-Your Image Here
+\begin{center}
+ \includegraphics[width=0.9\textwidth]{graphs/24.png}
+ \end{center}
 }
 
 
 
 \end{subquestion}
 
-\begin{subquestion}{(3 points) Discuss any trends and interesting aspects which emerge from the plot. Does this follow from your expectations?}
+\begin{subquestion}{\label{Q_CLUSTER_TRENDS}(3 points) Discuss any trends and interesting aspects which emerge from the plot. Does this follow from your expectations?}
 
 
 
 \answerbox{10em}{
-Your Answer Here
+From the lineplot, we observe that for 2 clusters, the AMI score is quite low (0.0983) and the score increases rapidly as we increase the number of clusters. However, we observe that the AMI for 4 clusters is unusually higher than the score for 5. For 9 clusters, we get the maximum AMI score of 0.3343. According to our plot, 9 clusters would be the ideal number for our clustering because it achieves the highest performance. But as we keep increasing the number of clusters, the AMI decreases slowly because we reach a point where the centroids start to overlap and each datapoint is assigned to one centroid (itself).
+
+I was expecting to have a low AMI with a small number of clusters and a specific number of clusters where the AMI reaches the maximum score and starts decreasing after that peak. But I was not expecting to have a higher score for 4 clusters than for 5.
 }
 
 
@@ -179,19 +190,21 @@ Your Answer Here
 
 
 \answerbox{40em}{
-Your Image Here
+\begin{center}
+ \includegraphics[width=0.9\textwidth]{graphs/26.png}
+ \end{center}
 }
 
 
 
 \end{subquestion}
 
-\begin{subquestion}{(3 points) How does the clustering in Question\ref{Q_UNSUP_LEARN}:\ref{Q_CLUSTER_FOUR} align with the true class labels? Does it conform to your observations in Q 2(e)?}
+\begin{subquestion}{(3 points) How does the clustering in Question\ref{Q_UNSUP_LEARN}:\ref{Q_CLUSTER_FOUR} align with the true class labels? Does it conform to your observations in Question\ref{Q_UNSUP_LEARN}:\ref{Q_CLUSTER_TRENDS}?}
 
 
 
 \answerbox{14em}{
-Your Answer Here
+The clustering and the true labels do not align very well with their true classes. Both the red and blue bars belong to the bigger class 'comp', and we observe that both of these are grouped together in cluster 1. As for cluster 2, we observe that it clearly aligns with 'sci.crypt' class. Regarding cluster 3, most of the datapoints belong to 'soc.religion.christian' class. In cluster 4, although the 'rec' classes dominate the cluster, we see that quite a lot of datapoints of class 'sci.electronics' are assigned to this cluster. So, we observe that most of the instances are assigned to clusters with their corresponding headers (comp, sci, rec...) but are not aligned with their actual correct classes. This is reflected in our 2.5 graph, where the AMI score for 4 clusters is higher than for 5.
 }
 
 
@@ -215,7 +228,9 @@ Your Answer Here
 
 
 \answerbox{8em}{
-Your Answer Here
+F1-score is a weighted average of the precision and recall (harmonic mean of the two). Accuracy mainly measures the correctly classified instances, and is largely contributed by True Negatives. In our problem, this can be harmful because we might never classify any instances to class 7, but the model should try to minimize these False Negatives. Thus, F1-score is more appropriate because it measures the misclassified instances better than accuracy and penalizes extreme values. In our news classification problem FN and FP are more important than TP and TN, especially because the classes are imbalanced (especially class 7), so F1-score is a more appropriate metric to use.
+
+The macro-average in a multiclass problem setting computes the F1-score independently for each class and then takes the average, treating all the classes equally without taking into account imbalanced classes, which can result in a misleading F1-score result.
 }
 
 
@@ -228,7 +243,7 @@ Your Answer Here
 
 
 \answerbox{8em}{
-Your Answer Here
+I chose a classifier that classifies all instances to the most probable class, which is the class most of the instances in the training dataset are classified to, as my baseline. This seems like a reasonable classifier because if we classify all instances to the most common class (class with most observations), we will make less misclassifications. As we can observe from the F1-score obtained (0.0292), the performance of this classifier on the test set is really bad.
 }
 
 
@@ -240,7 +255,7 @@ Your Answer Here
 
 
 \answerbox{9em}{
-Your Answer Here
+Muticlass classification can be achieved with Logistic Regression by using the one-vs-rest classification, which is a better approach than softmax or sigmoid, for multiclass. In OvR, a Logistic Regression classifier is trained for each class c in our dataset to predict the probability that y=c. So it turns out to be a binary classification where we have a separate binary classifier for each class c, and we calculate whether the datapoing belongs to that class or not.
 }
 
 
@@ -264,7 +279,9 @@ Your Answer Here
 
 
 \answerbox{40em}{
-Your Image Here
+\begin{center}
+ \includegraphics[width=0.9\textwidth]{graphs/35.png}
+ \end{center}
 }
 
 
@@ -276,7 +293,9 @@ Your Image Here
 
 
 \answerbox{11em}{
-Your Answer Here
+The optimal value of parameter C is 1.0, since this is the value of C for which we obtain the highest average F1-score (0.6768). This means that our Logistic Regressor generalises the best for C=1.0. The smaller the value of parameter C, the stronger the regularisation and the larger the value, the weaker the regularisation.
+
+The aim with regularisation is to reduce the generalisation error, and not the training error. So, regularisation generalises better on unseen data and reduces overfitting of the model to the training dataset. I chose value C=1.0 because for this value, the model generalises the best on the validation set. So, although we obtain higher F1-scores for higher parameter C values, we see that the model overfits to the training dataset and does not generalise well on unseen data (validation set). In fact, we see that it overfits because the difference on the F1-score between the training and validation sets keep increasing once we reach the peak for validation at C=1.0. Thus, the optimal value is for the C that has the highest score.
 }
 
 
@@ -288,7 +307,7 @@ Your Answer Here
 
 
 \answerbox{7em}{
-Your Answer Here
+The F1-score obtained on the actual test set is 0.6748. This is expected given that the value we obtained on the validation set for C=1.0 during our cross validation was approximately 0.6768. So, the value we get when we train our model on the testing set reflects our F1-score obtained during our cross validation on the validation set.
 }
 
 
@@ -328,7 +347,7 @@ Your Answer Here
 
 
 \answerbox{13em}{
-Your Answer Here
+Your answer here
 }
 
 
@@ -460,7 +479,7 @@ Your Answer Here
 \end{subquestion}
 
 
-\begin{subquestion}{(5 points) Generate three figures, one for the mean and one for each of the first 2 principal components: in each, plot the mean/component as three lines, one for each pollutant throught one day cycle. \hint{You will need to reshape the components with an `F' ordering.}}
+\begin{subquestion}{(5 points) Generate three figures, one for the mean and one for each of the first 2 principal components: in each, plot the mean/component as three lines, one for each pollutant throught one day cycle. \hint{You will need to reshape the components appropriately.}}
 
 
 
